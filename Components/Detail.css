@@ -1,0 +1,15 @@
+.detail{
+    display: table;
+    float: left;
+    position: relative;
+    width: 415px;
+}
+
+.poster{
+    float: right;
+    position: relative;
+    min-width: 120px;
+    min-height: 150px;
+    max-width: 203px;
+    max-height: 290px;
+}
