@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "antd/dist/antd.css";
 import Head from "next/head";
 import { createGlobalStyle } from "styled-components";
+import withReduxSaga from 'next-redux-saga';
 import wrapper from "../store/configureStore";
 
 //pages내의 공통적인 것을 처리하기위한 곳
@@ -30,4 +31,4 @@ App.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(withReduxSaga(App));

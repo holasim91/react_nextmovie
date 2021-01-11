@@ -1,6 +1,6 @@
 import React from 'react'
-// Dynamic Routing
-const detail = () => {
+
+const review = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const detail = () => {
     )
 }
 
-export default detail
+export default review

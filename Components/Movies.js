@@ -2,7 +2,6 @@ import { Card, List } from 'antd'
 import React from 'react'
 
 const Movies = ({moviedata}) => {
-    console.log(moviedata)
     return (
         <List
             grid={{ gutter: 16, column: 4 }}
