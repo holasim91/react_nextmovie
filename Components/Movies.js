@@ -1,25 +1,26 @@
-import { Card, List, Tooltip } from "antd";
-import {HeartTwoTone, PlusCircleTwoTone} from "@ant-design/icons"
-import  Link  from "next/link";
-import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import Loading from "./Loading";
+import { Card, List, Tooltip } from 'antd';
+import { HeartTwoTone, PlusCircleTwoTone } from '@ant-design/icons';
+import Link from 'next/link';
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import Loading from './Loading';
 
 const Movies = ({ moviedata }) => {
-  const [liked, setLiked] = useState(false)
-  const {fetchPopularMoviesLoading} = useSelector((state) => state.movie)
-  const {me} = useSelector((state) => state.user)
+  const [liked, setLiked] = useState(false);
+  const { fetchPopularMoviesLoading } = useSelector((state) => state.movie);
+  const { me } = useSelector((state) => state.user);
   const onToggleLike = useCallback(() => {
-    if(me){setLiked((prev) => !prev)}
-    else{
-      alert('찜기능은 로그인을 해주세요!')
+    if (me) {
+      setLiked((prev) => !prev);
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('찜기능은 로그인을 해주세요!');
       // 모달로 대체
     }
-  })
-  if(fetchPopularMoviesLoading){
-    return(
-      <Loading />
-    )
+  });
+  if (fetchPopularMoviesLoading) {
+    return <Loading />;
   }
   return (
     <List
@@ -29,35 +30,44 @@ const Movies = ({ moviedata }) => {
         <List.Item>
           <Card
             hoverable={false}
-            style={{ width: "240px" }}
-            cover={
+            style={{ width: '240px' }}
+            cover={(
               <img
                 alt={item.title}
                 src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
               />
-            }
+              )}
             actions={[
               <>
-                <Link href="/detail/[id]" as={`detail/${item.id}`} loading={fetchPopularMoviesLoading}>
+                <Link
+                  href="/detail/[id]"
+                  as={`detail/${item.id}`}
+                  loading={fetchPopularMoviesLoading}
+                >
                   <a>
-                    <Tooltip placement="left" title={"더보기"}>
+                    <Tooltip placement="left" title="더보기">
                       <PlusCircleTwoTone />
                     </Tooltip>
                   </a>
                 </Link>
               </>,
-              liked ?
-              <a>
-              <Tooltip placement="right" title={"찜취소"}>
-                <HeartTwoTone twoToneColor="#eb2f96" key="heart" onClick={onToggleLike}/>
-              </Tooltip>
-              </a>
-              :
-              <a>
-              <Tooltip placement="right" title={"찜하기"}>
-              <HeartTwoTone key="heart" onClick={onToggleLike} />
-            </Tooltip>
-            </a>,
+              liked ? (
+                <a>
+                  <Tooltip placement="right" title="찜취소">
+                    <HeartTwoTone
+                      twoToneColor="#eb2f96"
+                      key="heart"
+                      onClick={onToggleLike}
+                    />
+                  </Tooltip>
+                </a>
+              ) : (
+                <a>
+                  <Tooltip placement="right" title="찜하기">
+                    <HeartTwoTone key="heart" onClick={onToggleLike} />
+                  </Tooltip>
+                </a>
+              ),
             ]}
           >
             <Card.Meta
@@ -67,8 +77,12 @@ const Movies = ({ moviedata }) => {
           </Card>
         </List.Item>
       )}
-    ></List>
+    />
   );
+};
+
+Movies.propTypes = {
+  moviedata: PropTypes.array.isRequired,
 };
 
 export default Movies;

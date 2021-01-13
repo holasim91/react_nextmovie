@@ -56,9 +56,9 @@ function* logout() {
   }
 }
 
-function signUpAPI() {
-  return axios.post('/api/signUp');
-}
+// function signUpAPI() {
+//   return axios.post('/api/signUp');
+// }
 
 function* signUp() {
   try {
@@ -116,8 +116,6 @@ function* changeNickname(action) {
 //   }
 // }
 
-
-
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, login);
 }
@@ -140,7 +138,7 @@ function* watchChangeNickname() {
 
 export default function* userSaga() {
   yield all([
-    fork(watchLogIn), 
+    fork(watchLogIn),
     fork(watchLogOut),
     fork(watchSignUp),
     fork(watchChangeNickname),

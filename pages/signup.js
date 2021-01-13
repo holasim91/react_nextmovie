@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Head from "next/head";
+import React, { useCallback, useEffect, useState } from 'react';
+import Head from 'next/head';
 import Router from 'next/router';
-import AppLayout from "../Components/AppLayout";
-import { Checkbox, Form, Input, Button } from "antd";
-import useInput from "../hooks/useInput";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { SIGN_UP_REQUEST } from "../reducers/user";
+import { Checkbox, Form, Input, Button } from 'antd';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import useInput from '../hooks/useInput';
+import AppLayout from '../Components/AppLayout';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 
 const ErrorMassage = styled.div`
   color: #eb4d4b;
@@ -14,23 +14,23 @@ const ErrorMassage = styled.div`
 
 const FormWrapper = styled(Form)`
     width:300px;
-`
+`;
 
 const Signup = () => {
   const dispatch = useDispatch();
   const { signUpLoading, me } = useSelector((state) => state.user);
 
-  const [id, onChangeId] = useInput("");
-  const [nickname, onChangeNickname] = useInput("");
-  const [password, onChangePassword] = useInput("");
-  const [passwordCheck, setPasswordCheck] = useState("");
+  const [id, onChangeId] = useInput('');
+  const [nickname, onChangeNickname] = useInput('');
+  const [password, onChangePassword] = useInput('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const onChangePasswordCheck = useCallback(
     (e) => {
       setPasswordCheck(e.target.value);
       setPasswordError(e.target.value !== password);
     },
-    [password]
+    [password],
   );
   const [term, setTerm] = useState(false);
   const [termError, setTermError] = useState(false);
@@ -39,22 +39,20 @@ const Signup = () => {
     setTerm(e.target.checked);
   });
 
-
-
   useEffect(() => {
     if (me) {
+      // eslint-disable-next-line no-alert
       alert('로그인했으니 메인페이지로 이동합니다.');
       Router.push('/');
     }
   }, [me && me.id]);
 
-  
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
       return setPasswordError(true);
     }
     if (!term) {
-      console.log('term error!')
+      console.log('term error!');
       return setTermError(true);
     }
     return dispatch({
@@ -70,7 +68,7 @@ const Signup = () => {
   return (
     <>
       <Head>
-        <title>회원가입 | Sim's Movie</title>
+        <title>회원가입 | Sims Movie</title>
       </Head>
 
       <AppLayout>

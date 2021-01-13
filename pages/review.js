@@ -1,11 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-const review = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+const review = () => (<div>공사중...</div>);
 
-export default review
+export default review;

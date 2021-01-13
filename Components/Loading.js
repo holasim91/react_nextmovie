@@ -1,6 +1,5 @@
-import React from 'react'
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
-
 
 const rotate360 = keyframes`
   from {
@@ -25,10 +24,6 @@ const Spinner = styled.div`
   border-radius: 50%;
 `;
 
-const Loading = () =>{
-    return(
-        <Spinner />
-    )
-}
+const Loading = () => (<Spinner />);
 
 export default Loading;

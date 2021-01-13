@@ -1,10 +1,11 @@
-import React from "react";
-import Link from "next/link";
-import { Input, Menu, Row, Col } from "antd";
-import styled from "styled-components";
-import LoginForm from "./LoginForm";
-import { useSelector } from "react-redux";
-import UserProfile from "./UserProfile";
+import React from 'react';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
+import { Input, Menu, Row, Col } from 'antd';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 
 const SearchInput = styled(Input.Search)`
   vertical-align: middle;
@@ -17,12 +18,12 @@ const AppLayout = ({ children }) => {
       <Menu mode="horizontal">
         <Menu.Item>
           <Link href="/">
-            <a>Sim's Movie</a>
+            <a>Sims Movie</a>
           </Link>
         </Menu.Item>
         <Menu.Item>
           <Link href="/tmp">
-            <a style={{color:'red'}}>TMP</a>
+            <a style={{ color: 'red' }}>TMP</a>
           </Link>
         </Menu.Item>
         <Menu.Item>
@@ -33,25 +34,28 @@ const AppLayout = ({ children }) => {
         <Menu.Item>
           <SearchInput />
         </Menu.Item>
-        {me && 
+        {me && (
           <Menu.Item>
             <Link href="/mymovie">
               <a>찜</a>
             </Link>
           </Menu.Item>
-         } 
+        )}
       </Menu>
       <Row gutter={8}>
         <Col xs={24} md={6}>
           {me ? <UserProfile /> : <LoginForm />}
         </Col>
         <Col xs={24} md={18}>
-          {" "}
-          {children}{" "}
+          {children}
         </Col>
       </Row>
     </div>
   );
+};
+
+AppLayout.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default AppLayout;

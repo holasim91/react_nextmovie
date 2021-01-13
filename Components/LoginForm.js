@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from "react";
-import Link from "next/link";
-import { Input, Form, Button } from "antd";
-import styled from "styled-components";
-import useInput from "../hooks/useInput";
-import { useDispatch, useSelector } from "react-redux";
-import { loginRequestAction } from "../reducers/user";
+import React, { useCallback } from 'react';
+import Link from 'next/link';
+import { Input, Form, Button } from 'antd';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import useInput from '../hooks/useInput';
+import { loginRequestAction } from '../reducers/user';
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -18,11 +18,11 @@ const LoginForm = () => {
   const { logInLoading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
-  const [id, onChangeId] = useInput("");
-  const [password, onChangePassword] = useInput("");
+  const [id, onChangeId] = useInput('');
+  const [password, onChangePassword] = useInput('');
   const onSubmitForm = useCallback(() => {
     console.log(id, password);
-    dispatch(loginRequestAction({id , password }));
+    dispatch(loginRequestAction({ id, password }));
   }, [id, password]);
 
   return (
