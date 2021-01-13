@@ -34,6 +34,8 @@
   3. Detail Comment
   4. Detail 디자인하는데 포스터 디자인 -> https://ant.design/components/image/#header
   5. 프로필 접속시 경고창 분석 후 조치
+  6. 회원가입 로그인했을 때 리다이렉트 조치
+  
 
   
 

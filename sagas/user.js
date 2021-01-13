@@ -10,6 +10,10 @@ import {
   LOG_OUT_FAILURE,
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
+  SIGN_UP_FAILURE,
+  SIGN_UP_REQUEST,
+  SIGN_UP_SUCCESS,
+
 } from '../reducers/user';
 
 // function loginAPI(data) {
@@ -49,9 +53,25 @@ function* logout() {
   }
 }
 
-// function signupAPI(data) {
-//   return axios.post("/api/signup", data);
-// }
+function signUpAPI() {
+  return axios.post('/api/signUp');
+}
+
+function* signUp() {
+  try {
+    // const result = yield call(signUpAPI);
+    yield delay(1000);
+    yield put({
+      type: SIGN_UP_SUCCESS,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SIGN_UP_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
 
 // function loadMyMovieAPI(){
 //     return axios.post('/api/logout')
@@ -82,12 +102,19 @@ function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logout);
 }
 
+function* watchSignUp() {
+  yield takeLatest(SIGN_UP_REQUEST, signUp);
+}
+
 // function* watchMyMovie() {
 //   yield takeLatest(LOAD_MY_MOVIES_REQUEST, loadMyMovie)
 // }
 
 export default function* userSaga() {
-  yield all([fork(watchLogIn), fork(watchLogOut), 
+  yield all([
+    fork(watchLogIn), 
+    fork(watchLogOut),
+    fork(watchSignUp),
     // fork(watchMyMovie)
   ]);
 }

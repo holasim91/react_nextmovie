@@ -7,7 +7,7 @@ export const initialState = {
   logOutLoading: false, // 로그아웃 시도중
   logOutDone: false,
   logOutError: null,
-  signUpLoading: false, // 회원가입 시도
+  signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
   changeNicknameLoading: false, // 닉변경 시도
@@ -133,6 +133,19 @@ const reducer = (state = initialState, action) =>
         draft.logOutLoading = false;
         draft.logOutDone = false;
         draft.logOutError = action.error;
+        break;
+      case SIGN_UP_REQUEST:
+        draft.signUpLoading = true;
+        draft.signUpError = null;
+        draft.signUpDone = false;
+        break;
+      case SIGN_UP_SUCCESS:
+        draft.signUpLoading = false;
+        draft.signUpDone = true;
+        break;
+      case SIGN_UP_FAILURE:
+        draft.signUpLoading = false;
+        draft.signUpError = action.error;
         break;
       case CHANGE_NICKNAME_REQUEST:
         draft.changeNicknameLoading = true;

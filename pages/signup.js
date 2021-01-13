@@ -1,9 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
+import Router from 'next/router';
 import AppLayout from "../Components/AppLayout";
 import { Checkbox, Form, Input, Button } from "antd";
 import useInput from "../hooks/useInput";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { SIGN_UP_REQUEST } from "../reducers/user";
 
 const ErrorMassage = styled.div`
   color: #eb4d4b;
@@ -14,6 +17,9 @@ const FormWrapper = styled(Form)`
 `
 
 const Signup = () => {
+  const dispatch = useDispatch();
+  const { signUpLoading, me } = useSelector((state) => state.user);
+
   const [id, onChangeId] = useInput("");
   const [nickname, onChangeNickname] = useInput("");
   const [password, onChangePassword] = useInput("");
@@ -33,6 +39,16 @@ const Signup = () => {
     setTerm(e.target.checked);
   });
 
+
+
+  useEffect(() => {
+    if (me) {
+      alert('로그인했으니 메인페이지로 이동합니다.');
+      Router.push('/');
+    }
+  }, [me && me.id]);
+
+  
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
       return setPasswordError(true);
@@ -41,13 +57,20 @@ const Signup = () => {
       console.log('term error!')
       return setTermError(true);
     }
-    console.log(id, nickname, password);
-  }, [password, passwordCheck, term]);
+    return dispatch({
+      type: SIGN_UP_REQUEST,
+      data: {
+        id,
+        password,
+        nickname,
+      },
+    });
+  }, [id, password, passwordCheck, term]);
 
   return (
     <>
       <Head>
-        <title>회원가입 | NodeBirdFE</title>
+        <title>회원가입 | Sim's Movie</title>
       </Head>
 
       <AppLayout>
@@ -99,7 +122,7 @@ const Signup = () => {
             {termError && <ErrorMassage>동의해!</ErrorMassage>}
           </div>
           <div>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={signUpLoading}>
               가입하기
             </Button>
           </div>
