@@ -2,21 +2,22 @@ import { Button, Card } from 'antd'
 import Avatar from 'antd/lib/avatar/avatar'
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { logoutRequestAction } from '../reducers/user'
 
 const UserProfile = () => {
     const dispatch = useDispatch()
     const { me, logOutLoading } = useSelector((state) => state.user);
-    const onLogOut = useCallback(() => {
-      dispatch(logoutRequestAction());
+    const onLogout = useCallback(() => {
+      dispatch({
+        type: LOG_OUT_REQUEST,
+      });
     }, []);
-  
+    
     return (
         <Card
         actions={[
           <div key="towatch">
             찜영화
-            <br />0
+            <br />{me.myMovies.length}
           </div>,
           <div key="review">
             리뷰
@@ -25,7 +26,7 @@ const UserProfile = () => {
         ]}
       >
         <Card.Meta avatar={<Avatar>{me.nickname[0]}</Avatar>} title={me.nickname} />
-        <Button onClick={onLogOut} loading={logOutLoading}>
+        <Button onClick={onLogout} loading={logOutLoading}>
         로그아웃
       </Button>      
       </Card>

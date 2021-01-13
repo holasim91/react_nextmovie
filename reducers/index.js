@@ -1,7 +1,7 @@
 import {HYDRATE} from 'next-redux-wrapper'
 
 import user from './user'
-import mymovie from './mymovie'
+import movie from './movie'
 import { combineReducers } from 'redux'
 
 // combineReducers
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
     }
   },
   user,
-  mymovie,
+  movie
 });
 
 export default rootReducer;

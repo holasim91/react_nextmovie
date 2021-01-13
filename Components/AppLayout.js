@@ -11,13 +11,18 @@ const SearchInput = styled(Input.Search)`
 `;
 
 const AppLayout = ({ children }) => {
-  const { logInDone, me } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
   return (
     <div>
       <Menu mode="horizontal">
         <Menu.Item>
           <Link href="/">
             <a>Sim's Movie</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/tmp">
+            <a style={{color:'red'}}>TMP</a>
           </Link>
         </Menu.Item>
         <Menu.Item>
@@ -28,19 +33,13 @@ const AppLayout = ({ children }) => {
         <Menu.Item>
           <SearchInput />
         </Menu.Item>
-        {me ? (
+        {me && 
           <Menu.Item>
             <Link href="/mymovie">
               <a>찜</a>
             </Link>
           </Menu.Item>
-        ) : (
-          <Menu.Item>
-            <Link href="/signup">
-              <a>회원가입</a>
-            </Link>
-          </Menu.Item>
-        )}
+         } 
       </Menu>
       <Row gutter={8}>
         <Col xs={24} md={6}>
@@ -50,15 +49,6 @@ const AppLayout = ({ children }) => {
           {" "}
           {children}{" "}
         </Col>
-        {/* <Col xs={24} md={6}>
-          <a
-            href="https://github.com/holasim91/react_movie"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Made By HyuninSim
-          </a>
-        </Col> */}
       </Row>
     </div>
   );

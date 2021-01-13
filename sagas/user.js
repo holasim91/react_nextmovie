@@ -1,6 +1,9 @@
 // import axios from 'axios';
 import { all, delay, fork, put, takeLatest } from 'redux-saga/effects';
 import {
+  // LOAD_MY_MOVIES_FAILURE,
+  // LOAD_MY_MOVIES_REQUEST,
+  // LOAD_MY_MOVIES_SUCCESS,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -50,14 +53,41 @@ function* logout() {
 //   return axios.post("/api/signup", data);
 // }
 
+// function loadMyMovieAPI(){
+//     return axios.post('/api/logout')
+// }
+
+// function* loadMyMovie() {
+//   try {
+//     yield delay(1000);
+//     yield put({
+//       type: LOAD_MY_MOVIES_SUCCESS,
+//       data: action.data
+//     });
+//   } catch (err) {
+//     yield put({
+//       type: LOAD_MY_MOVIES_FAILURE,
+//       error: err.response.data,
+//     });
+//   }
+// }
+
+
 
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, login);
 }
+
 function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logout);
 }
 
+// function* watchMyMovie() {
+//   yield takeLatest(LOAD_MY_MOVIES_REQUEST, loadMyMovie)
+// }
+
 export default function* userSaga() {
-  yield all([fork(watchLogIn), fork(watchLogOut)]);
+  yield all([fork(watchLogIn), fork(watchLogOut), 
+    // fork(watchMyMovie)
+  ]);
 }

@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import AppLayout from '../Components/AppLayout'
 import Movies from '../Components/Movies'
-import { movieData } from '../movieData'
+import { LOAD_POPULAR_MOVIES_REQUEST } from '../reducers/movie'
 
 
 
 const Home = () => {
+    const dispatch = useDispatch()
+    const {movieList} = useSelector((state) => state.movie)
+    const [page, setPage] = useState(1)
+    useEffect(()=>{
+        dispatch({type: LOAD_POPULAR_MOVIES_REQUEST, data:{page}})
+    },[page])
+     
     return (
         <AppLayout>
             <h1>Popular Movies</h1>
-            {/* {movieData.map((m)=> <Movies key={m.id} title={m.title} poster={m.poster_path} date={m.release_date} id={m.id}/>)} */}
-            <Movies moviedata={movieData} />
+            <Movies moviedata={movieList} />
         </AppLayout>
     )
 }
