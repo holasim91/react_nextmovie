@@ -3,7 +3,6 @@ import produce from 'immer';
 export const initialState = {
   movieList: [],
   movieDetail: [],
-  myMovies: [{ user_id: 1 }],
   fetchPopularMoviesLoading: false, // 초기 영화 불러오기
   fetchPopularMoviesDone: false,
   fetchPopularMoviesError: null,
@@ -13,6 +12,9 @@ export const initialState = {
   loadMyMoviesLoading: false,
   loadMyMoviesDone: false,
   loadMyMoviesError: null,
+  addCommentLoading: false,
+  addCommentDone: false,
+  addCommentError: null,
 };
 
 export const LOAD_POPULAR_MOVIES_REQUEST = 'LOAD_POPULAR_MOVIES_REQUEST';
@@ -22,6 +24,10 @@ export const LOAD_POPULAR_MOVIES_FAILURE = 'LOAD_POPULAR_MOVIES_FAILURE';
 export const LOAD_MOVIE_DETAIL_REQUEST = 'LOAD_MOVIE_DETAIL_REQUEST';
 export const LOAD_MOVIE_DETAIL_SUCCESS = 'LOAD_MOVIE_DETAIL_SUCCESS';
 export const LOAD_MOVIE_DETAIL_FAILURE = 'LOAD_MOVIE_DETAIL_FAILURE';
+
+export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
+export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
+export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
@@ -57,6 +63,22 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.fetchMovieDetailDone = false;
       draft.fetchMovieDetailError = action.error;
       break;
+    // case ADD_COMMENT_REQUEST:
+    //   draft.addCommentLoading = true;
+    //   draft.addCommentDone = false;
+    //   draft.addCommentError = null;
+    //   break;
+    // case ADD_COMMENT_SUCCESS:
+    //   const movie = draft.mainPosts.find((v) => v.id === action.data.postId);
+    //   movie.Comments.unshift(dummyComment(action.data.content));
+    //   draft.addCommentLoading = false;
+    //   draft.addCommentDone = true;
+    //   break;
+    // case ADD_COMMENT_FAILURE:
+    //   draft.addCommentLoading = false;
+    //   draft.addCommentDone = false;
+    //   draft.addCommentError = action.error;
+    //   break;
     default:
       break;
   }

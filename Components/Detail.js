@@ -1,7 +1,10 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Comments from './Comments';
 
 const Detail = ({ detail }) => {
+  // dispatch detail.id
   if (!detail.production_companies) {
     return null;
   }
@@ -43,6 +46,7 @@ const Detail = ({ detail }) => {
         alt={detail.title}
         title={detail.title}
       />
+      <Comments />
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 import AppLayout from '../Components/AppLayout';
-import Loading from '../Components/Loading';
+import CommentForm from '../Components/CommentForm';
 
-const tmp = () => {
+const tmp = () => (
   <AppLayout>
-    <Loading />
-  </AppLayout>;
-};
+    <CommentForm />
+  </AppLayout>
+);
 
-export default tmp.apply;
+export default tmp;

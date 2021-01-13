@@ -7,7 +7,7 @@ import { LOAD_POPULAR_MOVIES_REQUEST } from '../reducers/movie';
 const Home = () => {
   const dispatch = useDispatch();
   const { movieList } = useSelector((state) => state.movie);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); // 스크롤링할 때마다 1씩 증가
   useEffect(() => {
     dispatch({ type: LOAD_POPULAR_MOVIES_REQUEST, data: { page } });
   }, [page]);

@@ -15,6 +15,7 @@ const Post = () => {
 
   useEffect(() => {
     dispatch({ type: LOAD_MOVIE_DETAIL_REQUEST, data: movie_id });
+    // dispatch({ type: LOAD_COMMENT_REQUEST, data: movie_id });
   }, [movie_id]);
 
   if (fetchMovieDetailLoading) {

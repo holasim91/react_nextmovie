@@ -19,7 +19,7 @@ const UserProfile = () => {
         <div key="towatch">
           찜영화
           <br />
-          {me.myMovies.length}
+          0
         </div>,
         <div key="review">
           리뷰

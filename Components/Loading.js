@@ -24,6 +24,6 @@ const Spinner = styled.div`
   border-radius: 50%;
 `;
 
-const Loading = () => (<Spinner />);
+const Loading = () => <Spinner />;
 
 export default Loading;
