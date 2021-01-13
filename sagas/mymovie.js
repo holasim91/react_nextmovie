@@ -1,17 +1,17 @@
 import { all, delay, fork, put, takeLatest } from 'redux-saga/effects';
-import { LOAD_MY_MOVIE_FAILURE, LOAD_MY_MOVIE_REQUEST, LOAD_MY_MOVIE_SUCCESS } from '../reducers/mymovie';
+import { LOAD_MY_MOVIES_FAILURE, LOAD_MY_MOVIES_REQUEST, LOAD_MY_MOVIES_SUCCESS } from '../reducers/mymovie';
 
 
 function* loadMyMovie(action){
     try {
         yield delay(1000);
         yield put({
-          type: LOAD_MY_MOVIE_SUCCESS,
+          type: LOAD_MY_MOVIES_SUCCESS,
           data: action.data,
         });
       } catch (err) {
         yield put({
-          type: LOAD_MY_MOVIE_FAILURE,
+          type: LOAD_MY_MOVIES_FAILURE,
           data: err.response.data,
         });
       }
@@ -19,7 +19,7 @@ function* loadMyMovie(action){
 
 
 function* watchLoadMyMovie() {
-    yield takeLatest(LOAD_MY_MOVIE_REQUEST, loadMyMovie);
+    yield takeLatest(LOAD_MY_MOVIES_REQUEST, loadMyMovie);
   }
   
 export default function* myMovieSaga() {

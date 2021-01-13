@@ -13,9 +13,6 @@ export const initialState = {
   changeNicknameLoading: false, // 닉변경 시도
   changeNicknameDone: false,
   changeNicknameError: null,
-  loadMyMoviesLoading: false, 
-  loadMyMoviesDone: false,
-  loadMyMoviesError: null,  
   addMyMovieLoading: false, // 회원가입 시도
   addMyMovieDone: false,
   addMyMovieError: null,  
@@ -42,10 +39,6 @@ export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
 export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
 export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
-
-export const LOAD_MY_MOVIES_REQUEST = 'LOAD_MY_MOVIES_REQUEST';
-export const LOAD_MY_MOVIES_SUCCESS = 'LOAD_MY_MOVIES_SUCCESS';
-export const LOAD_MY_MOVIES_FAILURE = 'LOAD_MY_MOVIES_FAILURE';
 
 export const ADD_MY_MOVIES_REQUEST = 'ADD_MY_MOVIES_REQUEST';
 export const ADD_MY_MOVIES_SUCCESS = 'ADD_MY_MOVIES_SUCCESS';
@@ -160,22 +153,6 @@ const reducer = (state = initialState, action) =>
       case CHANGE_NICKNAME_FAILURE:
         draft.changeNicknameLoading = false;
         draft.changeNicknameError = action.error;
-        break;
-      case LOAD_MY_MOVIES_REQUEST:
-        draft.loadMyMoviesLoading = true;
-        draft.loadMyMoviesDone = false;
-        draft.loadMyMoviesError = null;
-        break;
-      case LOAD_MY_MOVIES_SUCCESS:
-        draft.loadMyMoviesLoading = false;
-        draft.loadMyMoviesDone = true;
-        draft.loadMyMoviesError = null;
-        draft.me.myMovies = action.data;
-        break;
-      case LOAD_MY_MOVIES_FAILURE:
-        draft.loadMyMoviesLoading = false;
-        draft.loadMyMoviesDone = false;
-        draft.loadMyMoviesError = action.error;
         break;
       case ADD_MY_MOVIES_REQUEST:
         draft.addMyMoviesLoading = true;
