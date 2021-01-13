@@ -1,6 +1,9 @@
 // import axios from 'axios';
 import { all, delay, fork, put, takeLatest } from 'redux-saga/effects';
 import {
+  CHANGE_NICKNAME_FAILURE,
+  CHANGE_NICKNAME_REQUEST,
+  CHANGE_NICKNAME_SUCCESS,
   // LOAD_MY_MOVIES_FAILURE,
   // LOAD_MY_MOVIES_REQUEST,
   // LOAD_MY_MOVIES_SUCCESS,
@@ -73,6 +76,27 @@ function* signUp() {
   }
 }
 
+// function changeNicknameAPI() {
+//   return axios.post('/api/unfollow');
+// }
+
+function* changeNickname(action) {
+  try {
+    // const result = yield call(unfollowAPI);
+    yield delay(1000);
+    yield put({
+      type: CHANGE_NICKNAME_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: CHANGE_NICKNAME_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 // function loadMyMovieAPI(){
 //     return axios.post('/api/logout')
 // }
@@ -110,11 +134,16 @@ function* watchSignUp() {
 //   yield takeLatest(LOAD_MY_MOVIES_REQUEST, loadMyMovie)
 // }
 
+function* watchChangeNickname() {
+  yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchLogIn), 
     fork(watchLogOut),
     fork(watchSignUp),
+    fork(watchChangeNickname),
     // fork(watchMyMovie)
   ]);
 }

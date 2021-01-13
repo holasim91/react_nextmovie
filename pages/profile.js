@@ -8,7 +8,7 @@ import NicknameEditForm from '../Components/NicknameEditForm';
 const profile = () => {
     const { me } = useSelector((state) => state.user);
     useEffect(() => {
-      if (!(me && me.id)) {
+      if (!(me)) {
         Router.push('/');
       }
     }, [me && me.id]);
