@@ -21,37 +21,29 @@
 
 # ISSUE
  1. 찜하기 기능 -> 각 카드가 맵이라 하나 누르면 다 바뀜
- 2. 영화는 영화saga에서만 다루고 싶은데 mymovie는 user가 찜한 영화 리스트이니까 user saga에서 다루어야 하는건가? 만약 DB와 통신했다면 새로문 테이블을 하나 팠을듯?
- 3. 디테일의 댓글을 불러오는 방법에 대한 고찰
-     1. 디테일에 접속한다
-     2. 접속함과 동시에 movie_id를 props해서 API와 통신하고 movie 리듀서에 디스패칭해서 moviedetail 정보를 받아온다.(두 번의 useEffect?) 
-     3. 그것과 함께 그 moive_id를 Comment 리듀서로 dispatch해서 그 댓글들을 불러온다. -> Comment 리듀서, 사가를 만든다
-     4. 완성? -> ADD Comment할 떄는?
-     5. CommentForm은 로그인 상태에서만 보인다.
-     6. Comments 데이터 구조...
-     7. 노드버드 코멘트 Request를 참고한다.
+ 2. 최초로 댓글을 등록 할때 터짐. 이유 분석중
+ 3. 
 
 # 오늘 한 것
-  1. 
-  2. 
-  3. 
-  4. 
+  1. My Movie 동적처리
+  2. airbnb 적용으로 인해 들어갈 수가 없는 페이지 복구
+  3. Detail Comment 동적처리
+  4. 댓글 추가
 
 # 오늘 할 것
-  1. airbnb 적용으로 인해 들어갈 수가 없는 페이지 복구
+  1. 
   2. 찜 추가 제거
-  3. Detail Comment
   4. Detail 디자인하는데 포스터 디자인 -> https://ant.design/components/image/#header
-  5. CSS 다듬기?
+  5. 
   6. 
   
 
   
 
 # 내일 할 것
-  1. 
-  2. 
-  3. 
+  1. 댓글 수정, 삭제 기능
+  2. 로그인이 아닐시 댓글폼 뜨지 않게
+  3. CSS 다듬기?
   
 
 # Redux Thunk

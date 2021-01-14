@@ -1,13 +1,27 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import Comments from './Comments';
+import styled from 'styled-components';
+import { Comment, List } from 'antd';
+import Avatar from 'antd/lib/avatar/avatar';
+import { MessageOutlined } from '@ant-design/icons';
+import CommentForm from './CommentForm';
 
-const Detail = ({ detail }) => {
+const DetailWrapper = styled.div`
+  
+`;
+
+const Detail = ({ detail, comments }) => {
   // dispatch detail.id
   if (!detail.production_companies) {
     return null;
   }
+
+  const [commentFormOpened, setCommentFormOpened] = useState(false);
+  const onToggleComment = useCallback(() => {
+    setCommentFormOpened((prev) => !prev);
+  }, []);
+
   return (
     <div>
       <div>
@@ -32,7 +46,7 @@ const Detail = ({ detail }) => {
         <h4 className="genres">
           genres:
           {detail.genres.map((genre, i) => (
-            <h3 key={i}>{ genre.name }</h3>
+            <h3 key={i}>{genre.name}</h3>
           ))}
         </h4>
         <div className="summary">
@@ -46,13 +60,35 @@ const Detail = ({ detail }) => {
         alt={detail.title}
         title={detail.title}
       />
-      <Comments />
+      <div>
+        <MessageOutlined style={{ fontSize: '40px' }} key="message" onClick={onToggleComment} />
+      </div>
+      {commentFormOpened && (
+      <div style={{ width: '800px' }}>
+        <CommentForm detail={detail} />
+        <List
+          header={`${comments ? comments.length : 0} 댓글`}
+          itemLayout="horizontal"
+          dataSource={comments || []}
+          renderItem={(item) => (
+            <li>
+              <Comment
+                author={item.nickname}
+                avatar={<Avatar>{item.nickname[0]}</Avatar>}
+                content={item.content}
+              />
+            </li>
+          )}
+        />
+      </div>
+      )}
     </div>
   );
 };
 
 Detail.propTypes = {
-  detail: PropTypes.object.isRequired,
+  detail: PropTypes.array.isRequired,
+  comments: PropTypes.array.isRequired,
 };
 
 export default Detail;

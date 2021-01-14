@@ -1,8 +1,10 @@
 import produce from 'immer';
+import shortId from 'shortid';
 
 export const initialState = {
   movieList: [],
   movieDetail: [],
+  detailComments: [],
   fetchPopularMoviesLoading: false, // 초기 영화 불러오기
   fetchPopularMoviesDone: false,
   fetchPopularMoviesError: null,
@@ -25,9 +27,53 @@ export const LOAD_MOVIE_DETAIL_REQUEST = 'LOAD_MOVIE_DETAIL_REQUEST';
 export const LOAD_MOVIE_DETAIL_SUCCESS = 'LOAD_MOVIE_DETAIL_SUCCESS';
 export const LOAD_MOVIE_DETAIL_FAILURE = 'LOAD_MOVIE_DETAIL_FAILURE';
 
+export const LOAD_COMMENT_REQUEST = 'LOAD_COMMENT_REQUEST';
+export const LOAD_COMMENT_SUCCESS = 'LOAD_COMMENT_SUCCESS';
+export const LOAD_COMMENT_FAILURE = 'LOAD_COMMENT_FAILURE';
+
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+const genDummyComment = (data) => ({
+  userId: shortId.generate(),
+  date: '2021-01-15',
+  content: data,
+  nickname: '케로',
+});
+
+const DummyComments = [
+  {
+    movieId: 464052,
+    Comments: [
+      { userId: 1,
+        nickname: '하이',
+        content: '솔직히 좀 노잼....',
+        date: '2021-01-15',
+      },
+      { userId: 2,
+        nickname: '철쭉',
+        content: '킬링타임으로는 딱이었어여!!',
+        date: '2021-01-11',
+      },
+    ],
+  },
+  {
+    movieId: 508442,
+    Comments: [
+      { userId: 1,
+        nickname: '하이',
+        content: '인생 영화였습니다.. 제이미폭스 짱!',
+        date: '2020-12-25',
+      },
+      { userId: 2,
+        nickname: '방구',
+        content: '내일 2회차 달려욘!!',
+        date: '2021-01-03',
+      },
+    ],
+  },
+];
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
@@ -56,29 +102,29 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.fetchMovieDetailLoading = false;
       draft.fetchMovieDetailDone = true;
       draft.fetchMovieDetailError = null;
-      draft.movieDetail = action.data;
+      draft.movieDetail = action.movieInfo;
+      draft.detailComments = DummyComments.find((v) => v.movieId === action.movieInfo.id);
       break;
     case LOAD_MOVIE_DETAIL_FAILURE:
       draft.fetchMovieDetailLoading = false;
       draft.fetchMovieDetailDone = false;
       draft.fetchMovieDetailError = action.error;
       break;
-    // case ADD_COMMENT_REQUEST:
-    //   draft.addCommentLoading = true;
-    //   draft.addCommentDone = false;
-    //   draft.addCommentError = null;
-    //   break;
-    // case ADD_COMMENT_SUCCESS:
-    //   const movie = draft.mainPosts.find((v) => v.id === action.data.postId);
-    //   movie.Comments.unshift(dummyComment(action.data.content));
-    //   draft.addCommentLoading = false;
-    //   draft.addCommentDone = true;
-    //   break;
-    // case ADD_COMMENT_FAILURE:
-    //   draft.addCommentLoading = false;
-    //   draft.addCommentDone = false;
-    //   draft.addCommentError = action.error;
-    //   break;
+    case ADD_COMMENT_REQUEST:
+      draft.addCommentLoading = true;
+      draft.addCommentDone = false;
+      draft.addCommentError = null;
+      break;
+    case ADD_COMMENT_SUCCESS:
+      draft.detailComments.Comments.unshift(genDummyComment(action.data.content));
+      draft.addCommentLoading = false;
+      draft.addCommentDone = true;
+      break;
+    case ADD_COMMENT_FAILURE:
+      draft.addCommentLoading = false;
+      draft.addCommentDone = false;
+      draft.addCommentError = action.error;
+      break;
     default:
       break;
   }

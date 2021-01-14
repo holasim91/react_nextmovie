@@ -82,7 +82,6 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.myMovies = dummyMovies.find(
         (v) => v.User.userId === action.data.userId,
       ).myMovies;
-      console.log('?????' , action.data.userId);
       break;
     case LOAD_MY_MOVIES_FAILURE:
       draft.loadMyMoviesLoading = false;
