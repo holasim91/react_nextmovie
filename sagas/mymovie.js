@@ -6,7 +6,9 @@ function* loadMyMovie(action) {
     yield delay(1000);
     yield put({
       type: LOAD_MY_MOVIES_SUCCESS,
-      data: action.data,
+      data: {
+        userId: action.data.userId,
+      },
     });
   } catch (err) {
     yield put({
