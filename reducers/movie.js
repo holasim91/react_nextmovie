@@ -4,7 +4,13 @@ import shortId from 'shortid';
 export const initialState = {
   movieList: [],
   movieDetail: [],
-  detailComments: [],
+  detailComments: [
+    // {
+    //   movieId: '',
+    //   Comments: [{ userId: '', nickname: '', content: '', date: '' }],
+    // },
+  ],
+  hasMoreMovies: true,
   fetchPopularMoviesLoading: false, // 초기 영화 불러오기
   fetchPopularMoviesDone: false,
   fetchPopularMoviesError: null,
@@ -38,8 +44,8 @@ export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 const genDummyComment = (data) => ({
   userId: shortId.generate(),
   date: '2021-01-15',
-  content: data,
-  nickname: '케로',
+  content: data.content,
+  nickname: 'CommnetDummy',
 });
 
 const DummyComments = [
@@ -74,7 +80,20 @@ const DummyComments = [
     ],
   },
 ];
-
+function findComments(data) {
+  const comments = DummyComments.find((v) => v.movieId === data);
+  if (!comments) {
+    return [
+      {
+        movieId: data,
+        Comments: [
+        ],
+      },
+    ];
+  }
+  console.log('Load Comment',comments);
+  return comments;
+}
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
     case LOAD_POPULAR_MOVIES_REQUEST:
@@ -86,7 +105,9 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.fetchPopularMoviesLoading = false;
       draft.fetchPopularMoviesDone = true;
       draft.fetchPopularMoviesError = null;
-      draft.movieList = action.data.results.concat(draft.movieList);
+      // draft.movieList = action.data.results.concat(draft.movieList);
+      draft.movieList = draft.movieList.concat(action.data.results);
+      draft.hasMoreMovies = draft.movieList.length <= 200; // 임시로 막아둔 것
       break;
     case LOAD_POPULAR_MOVIES_FAILURE:
       draft.fetchPopularMoviesLoading = false;
@@ -103,7 +124,8 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.fetchMovieDetailDone = true;
       draft.fetchMovieDetailError = null;
       draft.movieDetail = action.movieInfo;
-      draft.detailComments = DummyComments.find((v) => v.movieId === action.movieInfo.id);
+      // 댓글 처리
+      draft.detailComments = findComments(action.movieInfo.id);
       break;
     case LOAD_MOVIE_DETAIL_FAILURE:
       draft.fetchMovieDetailLoading = false;
@@ -116,7 +138,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.addCommentError = null;
       break;
     case ADD_COMMENT_SUCCESS:
-      draft.detailComments.Comments.unshift(genDummyComment(action.data.content));
+      draft.detailComments.Comments.push(genDummyComment(action.data));
       draft.addCommentLoading = false;
       draft.addCommentDone = true;
       break;

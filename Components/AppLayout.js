@@ -32,7 +32,7 @@ const AppLayout = ({ children }) => {
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <SearchInput />
+          <SearchInput placeholder="구현중..." />
         </Menu.Item>
         {me && (
           <Menu.Item>
@@ -43,12 +43,13 @@ const AppLayout = ({ children }) => {
         )}
       </Menu>
       <Row gutter={8}>
-        <Col xs={24} md={6}>
+        <Col xs={24} md={4}>
           {me ? <UserProfile /> : <LoginForm />}
         </Col>
         <Col xs={24} md={18}>
           {children}
         </Col>
+        <Col xs={24} md={2} />
       </Row>
     </div>
   );

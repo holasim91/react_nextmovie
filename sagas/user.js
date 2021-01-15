@@ -4,9 +4,6 @@ import {
   CHANGE_NICKNAME_FAILURE,
   CHANGE_NICKNAME_REQUEST,
   CHANGE_NICKNAME_SUCCESS,
-  // LOAD_MY_MOVIES_FAILURE,
-  // LOAD_MY_MOVIES_REQUEST,
-  // LOAD_MY_MOVIES_SUCCESS,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -97,25 +94,6 @@ function* changeNickname(action) {
   }
 }
 
-// function loadMyMovieAPI(){
-//     return axios.post('/api/logout')
-// }
-
-// function* loadMyMovie() {
-//   try {
-//     yield delay(1000);
-//     yield put({
-//       type: LOAD_MY_MOVIES_SUCCESS,
-//       data: action.data
-//     });
-//   } catch (err) {
-//     yield put({
-//       type: LOAD_MY_MOVIES_FAILURE,
-//       error: err.response.data,
-//     });
-//   }
-// }
-
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, login);
 }
@@ -128,10 +106,6 @@ function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
-// function* watchMyMovie() {
-//   yield takeLatest(LOAD_MY_MOVIES_REQUEST, loadMyMovie)
-// }
-
 function* watchChangeNickname() {
   yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
 }
@@ -142,6 +116,5 @@ export default function* userSaga() {
     fork(watchLogOut),
     fork(watchSignUp),
     fork(watchChangeNickname),
-    // fork(watchMyMovie)
   ]);
 }

@@ -25,7 +25,6 @@ const CommentForm = ({ detail }) => {
       data: { content: commentText, userId: id, movieId: detail.id },
     });
   }, [commentText, id]);
-
   return (
     <Form onFinish={onSubmitComment}>
       <Form.Item style={{ position: 'relative', margin: 0 }}>
@@ -49,7 +48,8 @@ const CommentForm = ({ detail }) => {
             등록
           </Button>
         ) : (
-          <></>
+          // eslint-disable-next-line no-alert
+          <>{alert('댓글등록은 로그인을 하세요')}</>
         )}
       </Form.Item>
     </Form>

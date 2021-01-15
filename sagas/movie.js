@@ -1,4 +1,4 @@
-import { all, call, delay, fork, put, takeLatest } from 'redux-saga/effects';
+import { all, call, delay, fork, put, takeLatest, throttle } from 'redux-saga/effects';
 import axios from 'axios';
 import {
   ADD_COMMENT_FAILURE,
@@ -84,7 +84,7 @@ function* watchMovieDetail() {
 }
 
 function* watchPopularMovies() {
-  yield takeLatest(LOAD_POPULAR_MOVIES_REQUEST, popularMovies);
+  yield throttle(2000, LOAD_POPULAR_MOVIES_REQUEST, popularMovies);
 }
 
 function* watchAddComment() {

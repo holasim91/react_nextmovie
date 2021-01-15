@@ -13,6 +13,7 @@ const DetailWrapper = styled.div`
 
 const Detail = ({ detail, comments }) => {
   // dispatch detail.id
+  console.log('Detail Component로 들어온 commetns', comments);
   if (!detail.production_companies) {
     return null;
   }
@@ -67,14 +68,14 @@ const Detail = ({ detail, comments }) => {
       <div style={{ width: '800px' }}>
         <CommentForm detail={detail} />
         <List
-          header={`${comments ? comments.length : 0} 댓글`}
+          header={`${comments.Comments ? comments.Comments.length : 0}개의 댓글`}
           itemLayout="horizontal"
-          dataSource={comments || []}
+          dataSource={comments.Comments || []}
           renderItem={(item) => (
             <li>
               <Comment
                 author={item.nickname}
-                avatar={<Avatar>{item.nickname[0]}</Avatar>}
+                avatar={<Avatar>{`${item.nickname ? item.nickname[0] : ''} `}</Avatar>}
                 content={item.content}
               />
             </li>
@@ -88,7 +89,11 @@ const Detail = ({ detail, comments }) => {
 
 Detail.propTypes = {
   detail: PropTypes.array.isRequired,
-  comments: PropTypes.array.isRequired,
+  comments: PropTypes.array,
+};
+
+Detail.defaultProps = {
+  comments: [],
 };
 
 export default Detail;
