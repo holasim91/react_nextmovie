@@ -8,12 +8,54 @@ import { MessageOutlined } from '@ant-design/icons';
 import CommentForm from './CommentForm';
 
 const DetailWrapper = styled.div`
-  
+  width: 800px;
+  background: #FFF;
+  padding: 10px;
 `;
+const MovieTitleWrapper = styled.div`
+  padding-top: 50px;
+  font-size: 56px;
+  font-weight: bold;
+  margin-bottom: -22px;
+`;
+const OriginalTitleWrapper = styled.div`
+    font-size: 28px;
+    color: #767676;
+    font-weight: bold; 
 
+`;
+const StyledP = styled.div`
+  font-size: 18px;
+  margin-bottom: 10px;
+  strong{
+    font-size: 24px;
+  }
+
+`;
+const DescWrapper = styled.div`
+  font-size: 20px;
+  display: inline-block;
+`;
+const DetailInfoWrapper = styled.div`
+    height: 500px;
+    width: 450px;
+    float: left;
+    padding-top: 25px;
+`;
+const PosterWrapper = styled.div`
+    height: 500px;
+    width: 314px;
+    display: inline-block;
+    img{
+      width: 314px;
+    }
+
+`;
+const CommentToggleWrapper = styled.div`
+  color: #5f5c5f;
+`;
 const Detail = ({ detail, comments }) => {
   // dispatch detail.id
-  console.log('Detail Component로 들어온 commetns', comments);
   if (!detail.production_companies) {
     return null;
   }
@@ -22,48 +64,39 @@ const Detail = ({ detail, comments }) => {
   const onToggleComment = useCallback(() => {
     setCommentFormOpened((prev) => !prev);
   }, []);
-
+  const gernesArray = [];
+  detail.genres.map((genre) => (gernesArray.push(genre.name)));
   return (
     <div>
-      <div>
-        <h1>{detail.title}</h1>
-        <h4>Release Date: {detail.release_date}</h4>
-        <div>
-          production Company:
-          {detail.production_companies.map((company, idx) => (company.logo_path ? (
-            <img
-              key={idx}
-              className="logo"
-              src={`https://image.tmdb.org/t/p/w500/${company.logo_path}`}
-              alt={company.name}
-              title={company.name}
-              style={{ width: '50px', height: '50px' }}
-            />
-          ) : (
-            <></>
-          )))}
-        </div>
-        <h4>score: {detail.vote_average}</h4>
-        <h4 className="genres">
-          genres:
-          {detail.genres.map((genre, i) => (
-            <h3 key={i}>{genre.name}</h3>
-          ))}
-        </h4>
-        <div className="summary">
-          <p style={{ fontWeight: 300 }}>Description:</p> {detail.overview}
-        </div>
-        <h4>status : {detail.status}</h4>
-      </div>
-      <img
-        className="poster"
-        src={`https://image.tmdb.org/t/p/w500/${detail.poster_path}`}
-        alt={detail.title}
-        title={detail.title}
-      />
-      <div>
-        <MessageOutlined style={{ fontSize: '40px' }} key="message" onClick={onToggleComment} />
-      </div>
+      <DetailWrapper>
+        <MovieTitleWrapper>{detail.title}</MovieTitleWrapper>
+        <OriginalTitleWrapper>{detail.original_title}</OriginalTitleWrapper>
+        <DetailInfoWrapper>
+          <StyledP><strong>ReleaseDate:</strong> {detail.release_date}</StyledP>
+          <StyledP><strong>Score:</strong> {detail.vote_average}</StyledP>
+          <StyledP>
+            <strong>Genres:</strong> {gernesArray.join(' ')}
+          </StyledP>
+          <StyledP><strong>Status:</strong> {detail.status}</StyledP>
+
+        </DetailInfoWrapper>
+        <PosterWrapper>
+          <img
+            // style={{ width: '314px' }}
+            src={`https://image.tmdb.org/t/p/w500/${detail.poster_path}`}
+            alt={detail.title}
+            title={detail.title}
+          />
+        </PosterWrapper>
+        <DescWrapper>
+          <strong>Description:</strong>
+          {detail.overview}
+        </DescWrapper>
+        <CommentToggleWrapper>
+          <MessageOutlined style={{ fontSize: '40px' }} key="message" onClick={onToggleComment} />
+          Comment
+        </CommentToggleWrapper>
+      </DetailWrapper>
       {commentFormOpened && (
       <div style={{ width: '800px' }}>
         <CommentForm detail={detail} />
