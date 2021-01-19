@@ -29,14 +29,11 @@ const tmp = () => (
       <MovieTitleWrapper>Guardians of the Galaxy</MovieTitleWrapper>
       <Row>
         <ReleaseDateWrapper>
-          <strong>ReleaseDate</strong>
-          <br />
-          2020-01-13
+          <strong>ReleaseDate: <p>2020-01-13</p></strong>
         </ReleaseDateWrapper>
+        <br />
         <GenresWrapper>
-          <strong>GENRES</strong>
-          <br />
-          Fantasy, Action, Adventure
+          <strong>GENRES: <p>Fantasy, Action, Adventure</p> </strong>
         </GenresWrapper>
         <img
           style={{ width: '224px', height: '320px' }}

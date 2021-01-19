@@ -4,12 +4,7 @@ import shortId from 'shortid';
 export const initialState = {
   movieList: [],
   movieDetail: [],
-  detailComments: [
-    // {
-    //   movieId: '',
-    //   Comments: [{ userId: '', nickname: '', content: '', date: '' }],
-    // },
-  ],
+  detailComments: [],
   hasMoreMovies: true,
   fetchPopularMoviesLoading: false, // 초기 영화 불러오기
   fetchPopularMoviesDone: false,
@@ -80,20 +75,17 @@ const DummyComments = [
     ],
   },
 ];
+
 function findComments(data) {
   const comments = DummyComments.find((v) => v.movieId === data);
-  if (!comments) {
-    return [
-      {
-        movieId: data,
-        Comments: [
-        ],
-      },
-    ];
+  if (comments === undefined) {
+    DummyComments.unshift({ movieId: data, Comments: [] });
+    const first = DummyComments.find((v) => v.movieId === data);
+    return first;
   }
-  console.log('Load Comment',comments);
   return comments;
 }
+
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
     case LOAD_POPULAR_MOVIES_REQUEST:
@@ -124,7 +116,6 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.fetchMovieDetailDone = true;
       draft.fetchMovieDetailError = null;
       draft.movieDetail = action.movieInfo;
-      // 댓글 처리
       draft.detailComments = findComments(action.movieInfo.id);
       break;
     case LOAD_MOVIE_DETAIL_FAILURE:
@@ -138,7 +129,9 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.addCommentError = null;
       break;
     case ADD_COMMENT_SUCCESS:
-      draft.detailComments.Comments.push(genDummyComment(action.data));
+      // eslint-disable-next-line no-case-declarations
+      const current = draft.detailComments;
+      current.Comments.unshift(genDummyComment(action.data));
       draft.addCommentLoading = false;
       draft.addCommentDone = true;
       break;
